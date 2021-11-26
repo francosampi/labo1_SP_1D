@@ -636,3 +636,5 @@ int ll_map(LinkedList* this, int (*pFunc)(void*))
 	return 1;
 }
 
+LinkedList* ll_filter(LinkedList* this, int (*pFunc)(void*))
+{}

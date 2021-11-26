@@ -22,6 +22,7 @@ Perrito* perrito_newParametros(char* idStr,char* nombreStr,char* pesoStr,char* e
 		perrito_setPeso(perrito, atof(pesoStr));
 		perrito_setEdad(perrito, atoi(edadStr));
 		perrito_setRaza(perrito, razaStr);
+		perrito_setCantidadComidaRacion(perrito, 0);
 	}
 	return perrito;
 }
@@ -149,7 +150,7 @@ int perrito_getCantidadComidaRacion(Perrito* this,float* cantidadComidaRacion)
 {
 	if(this!=NULL && cantidadComidaRacion!=NULL)
 	{
-		*cantidadComidaRacion=this->peso;
+		*cantidadComidaRacion=this->cantidadComidaRacion;
 		return 0;
 	}
 	return -1;

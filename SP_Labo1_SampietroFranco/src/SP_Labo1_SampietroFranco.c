@@ -19,6 +19,7 @@ int main(void) {
 		printf("1. Cargar los datos de los perritos desde el archivo data.csv (modo texto)\n"
 			  "2. Listar los perritos de manera ascendente\n"
 			  "3. Calcular cantidad de comida\n"
+			  "4. Listar los perritos con raciones de comida\n"
 			  "3. Salir");
 		printLine("");
 
@@ -44,7 +45,11 @@ int main(void) {
 			case 2:
 				if(flagListaCargada==1)
 				{
-					if(listaPerritos!=NULL || perritos_listAll(listaPerritos, 0)==1)
+					if(listaPerritos!=NULL && perritos_orderByName(listaPerritos)==0)
+					{
+						perritos_listAll(listaPerritos, 0);
+					}
+					else
 					{
 						printf("\nError al listar los datos...\n");
 					}
@@ -58,7 +63,17 @@ int main(void) {
 			case 3:
 				if(flagListaCargada==1)
 				{
-					if(listaPerritos!=NULL || perritos_calculateFood(listaPerritos)==1 || perritos_listAll(listaPerritos, 1)==1)
+					if(listaPerritos!=NULL && perritos_calculateFood(listaPerritos)==0)
+					{
+						printf("\nRaciones calculadas exitosamente...");
+					}
+					system("pause");
+				}
+				break;
+			case 4:
+				if(flagListaCargada==1)
+				{
+					if(listaPerritos==NULL || perritos_listAll(listaPerritos, 1)==1)
 					{
 						printf("\nError al listar los datos...\n");
 					}

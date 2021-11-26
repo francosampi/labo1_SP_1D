@@ -19,6 +19,7 @@ int perritos_loadFromText(char* path , LinkedList* llist)
 	return 1;
 }
 
+/*
 int perritos_orderByName(LinkedList* llist)
 {
 	int len=ll_len(llist);
@@ -53,6 +54,34 @@ int perritos_orderByName(LinkedList* llist)
 	}
 	return 1;
 }
+*/
+
+int perritos_compareName(void* perritoA, void* perritoB)
+{
+	if(perritoA!=NULL && perritoB!=NULL)
+	{
+		char auxNombreA[128], auxNombreB[128];
+
+		Perrito *perrA = (Perrito*) perritoA;
+		Perrito *perrB = (Perrito*) perritoB;
+
+		perrito_getNombre(perrA, auxNombreA);
+		perrito_getNombre(perrB, auxNombreB);
+
+		return strcmp(auxNombreA, auxNombreB);
+	}
+	return -2;
+}
+
+int perritos_orderByName(LinkedList* llist)
+{
+	if(llist!=NULL)
+	{
+		ll_sort(llist, perritos_compareName, 1);
+		return 0;
+	}
+	return 1;
+}
 
 void perrito_listOne(Perrito* perrito, int conComida)
 {
@@ -69,11 +98,11 @@ void perrito_listOne(Perrito* perrito, int conComida)
 
 	if(conComida==0)
 	{
-		printf("%-5d %-20s %-10f %-5d %-20s\n", auxId, auxNombre, auxPeso, auxEdad, auxRaza);
+		printf("%-5d %-20s %-10.2f %-5d %-20s\n", auxId, auxNombre, auxPeso, auxEdad, auxRaza);
 	}
 	else
 	{
-		printf("%-5d %-20s %-10f %-5d %-20s %-10f\n", auxId, auxNombre, auxPeso, auxEdad, auxRaza, auxComida);
+		printf("%-5d %-20s %-10.2f %-5d %-20s %-.210f\n", auxId, auxNombre, auxPeso, auxEdad, auxRaza, auxComida);
 	}
 }
 
