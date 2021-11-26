@@ -1,10 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "functions.h"
 #include "Perritos.h"
 #include "LinkedList.h"
-#include "inputs.h"
 
 Perrito* perrito_new(){
 	Perrito* employee = NULL;
@@ -12,7 +10,7 @@ Perrito* perrito_new(){
 	return employee;
 }
 
-Perrito* perrito_newParametros(char* idStr,char* nombreStr,char* edadStr,char* razaStr)
+Perrito* perrito_newParametros(char* idStr,char* nombreStr,char* pesoStr,char* edadStr,char* razaStr)
 {
 	Perrito* perrito = NULL;
 	perrito = perrito_new();

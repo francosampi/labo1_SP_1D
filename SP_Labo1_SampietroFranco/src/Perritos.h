@@ -7,12 +7,13 @@ typedef struct
 {
     int id;
     char nombre[128];
+    float peso;
     int edad;
     char raza[128];
 }Perrito;
 
 Perrito* perrito_new();
-Perrito* perrito_newParametros(char* idStr,char* nombreStr,char* edadStr,char* razaStr);
+Perrito* perrito_newParametros(char* idStr,char* nombreStr,char* pesoStr,char* edadStr,char* razaStr);
 
 void perrito_delete(Perrito* this);
 
