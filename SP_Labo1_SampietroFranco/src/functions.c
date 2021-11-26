@@ -115,7 +115,14 @@ int perritos_listAll(LinkedList* llist, int conComida)
 		lltam=ll_len(llist);
 
 		printLine("LISTA DE PERRITOS");
-		printf("\n\n%-5s %-20s %-5s %-5s %-20s\n", "ID", "Nombre", "Peso", "Edad", "Raza");
+		if(conComida==0)
+		{
+			printf("\n\n%-5s %-20s %-10s %-5s %-20s\n", "ID", "Nombre", "Peso", "Edad", "Raza");
+		}
+		else
+		{
+			printf("\n\n%-5s %-20s %-10s %-5s %-20s %-10s\n", "ID", "Nombre", "Peso", "Edad", "Raza", "Racion de comida");
+		}
 		printLine("");
 		for(int i=0; i<lltam; i++)
 		{
@@ -176,7 +183,7 @@ int ePerrito_laQueFiltra(void* perrito)
 	return 1;
 }
 
-int perritos_filtrarGalgos(LinkedList* llist)
+int perritos_filtrarGalgos(LinkedList* llist, LinkedList* filteredList)
 {
 	LinkedList* listaGalgos=NULL;
 

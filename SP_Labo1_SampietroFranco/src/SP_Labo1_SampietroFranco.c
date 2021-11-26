@@ -14,17 +14,20 @@ int main(void) {
 	int flagRacionesCargadas=0;
 
 	LinkedList* listaPerritos = ll_newLinkedList();
+	LinkedList* listaFiltrada = ll_newLinkedList();
 
 	do{
 		printLine("MENU");
-		printf("1. Cargar los datos de los perritos desde el archivo data.csv (modo texto)\n"
+		printf("1. Cargar los datos de los perritos desde el archivo perritos.csv (modo texto)\n"
 			  "2. Listar los perritos de manera ascendente\n"
 			  "3. Calcular cantidad de comida\n"
 			  "4. Listar los perritos con raciones de comida\n"
-			  "3. Salir");
+			  "5. Filtrar Galgos flaquitos\n"
+			  "6. Guardar Galgos flaquitos en galgosFlaquitos.csv\n"
+			  "7. Salir");
 		printLine("");
 
-		opcion=getInt("\nIngrese una opcion (1-8): ", "\nError. Ingrese una opcion (1-8): ", 1, 8);
+		opcion=getInt("\nIngrese una opcion (1-7): ", "\nError. Ingrese una opcion (1-7): ", 1, 7);
 
 		switch(opcion)
 		{
@@ -40,26 +43,30 @@ int main(void) {
 					{
 						printf("\nError al cargar los datos...\n");
 					}
-					system("pause");
 				}
+				system("pause");
 				break;
 			case 2:
 				if(flagListaCargada==1)
 				{
-					if(listaPerritos!=NULL && perritos_orderByName(listaPerritos)==0)
+					if(listaPerritos!=NULL)
 					{
-						perritos_listAll(listaPerritos, 0);
+						printf("\nEspere mientras se ordena la lista...\n");
+						if(perritos_orderByName(listaPerritos)==0)
+						{
+							perritos_listAll(listaPerritos, 0);
+						}
 					}
 					else
 					{
 						printf("\nError al listar los datos...\n");
 					}
-					system("pause");
 				}
 				else
 				{
-					printf("La lista no fue cargada previamente...");
+					printf("La lista no fue cargada previamente...\n");
 				}
+				system("pause");
 				break;
 			case 3:
 				if(flagListaCargada==1)
@@ -67,14 +74,14 @@ int main(void) {
 					if(listaPerritos!=NULL && perritos_calculateFood(listaPerritos)==0)
 					{
 						flagRacionesCargadas=1;
-						printf("\nRaciones calculadas exitosamente...");
+						printf("\nRaciones calculadas exitosamente...\n");
 					}
-					system("pause");
 				}
 				else
 				{
-					printf("La lista no fue cargada previamente...");
+					printf("La lista no fue cargada previamente...\n");
 				}
+				system("pause");
 				break;
 			case 4:
 				if(flagListaCargada==1)
@@ -83,29 +90,79 @@ int main(void) {
 					{
 						printf("\nError al listar los datos...\n");
 					}
-					system("pause");
 				}
 				else
 				{
-					printf("La lista no fue cargada previamente...");
+					printf("La lista no fue cargada previamente...\n");
 				}
+				system("pause");
 				break;
 			case 5:
 				if(flagListaCargada==1)
 				{
-					if(listaPerritos!=NULL && perritos_filtrarGalgos(listaPerritos)==0)
+					if(flagRacionesCargadas==1)
 					{
-						printf("\nRaciones calculadas exitosamente...");
+						if(listaPerritos!=NULL && perritos_filtrarGalgos(listaPerritos, listaFiltrada)==0)
+						{
+							printf("\nRaciones calculadas exitosamente...\n");
+						}
 					}
-					system("pause");
+					else
+					{
+						printf("\nLas raciones de comida no fueron calculadas previamente...\n");
+					}
 				}
 				else
 				{
-					printf("La lista no fue cargada previamente...");
+					printf("La lista no fue cargada previamente...\n");
+				}
+				system("pause");
+				break;
+			case 6:
+				if(flagListaCargada==1)
+				{
+					if(flagRacionesCargadas==1)
+					{
+						if(listaPerritos!=NULL && perritos_saveGalgosText("src//galgosFlaquitos.csv", listaFiltrada)==0)
+						{
+							printf("\nGalgos guardados exitosamente...\n");
+						}
+					}
+					else
+					{
+						printf("\nLas raciones de comida no fueron calculadas previamente...\n");
+						if(verify("\nDesea calcularlas? ('s'): ")==0)
+						{
+							if (perritos_calculateFood(listaPerritos)==0)
+							{
+								flagRacionesCargadas=1;
+								printf("\nRaciones calculadas exitosamente...\n");
+							}
+						}
+						else
+						{
+							printf("\nVolviendo al menu...\n");
+						}
+					}
+				}
+				else
+				{
+					printf("La lista no fue cargada previamente...\n");
+				}
+				system("pause");
+				break;
+			case 7:
+				if(verify("\nDesea salir del programa? ('s'): ")==0)
+				{
+					if(listaPerritos!=NULL)
+					{
+						ll_deleteLinkedList(listaPerritos);
+					}
+					printf("\nSaliendo del programa...\n");
 				}
 				break;
 		}
-	}while(opcion!=6);
+	}while(opcion!=7);
 
 	return EXIT_SUCCESS;
 }
