@@ -212,7 +212,9 @@ int main(void) {
 					{
 						ll_deleteLinkedList(listaPerritos);
 					}
-					printf("\nSaliendo del programa...\n");
+					printLine("SALIENDO DEL PROGRAMA");
+					printf("         ||_/|\n""	 | @ @   Woof! Vuelva pronto...\n""	 |   <>              _\n""	 |  _/| -----____ ((| |))\n"
+												"	 |               `--' |\n""     ____|_       ___|   |___.'\n""    /_/_____/____/_______| \n\n");
 				}
 				break;
 		}
