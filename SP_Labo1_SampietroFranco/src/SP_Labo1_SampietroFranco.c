@@ -11,6 +11,7 @@ int main(void) {
 
 	int opcion = 0;
 	int flagListaCargada=0;
+	int flagRacionesCargadas=0;
 
 	LinkedList* listaPerritos = ll_newLinkedList();
 
@@ -65,9 +66,14 @@ int main(void) {
 				{
 					if(listaPerritos!=NULL && perritos_calculateFood(listaPerritos)==0)
 					{
+						flagRacionesCargadas=1;
 						printf("\nRaciones calculadas exitosamente...");
 					}
 					system("pause");
+				}
+				else
+				{
+					printf("La lista no fue cargada previamente...");
 				}
 				break;
 			case 4:
@@ -78,6 +84,24 @@ int main(void) {
 						printf("\nError al listar los datos...\n");
 					}
 					system("pause");
+				}
+				else
+				{
+					printf("La lista no fue cargada previamente...");
+				}
+				break;
+			case 5:
+				if(flagListaCargada==1)
+				{
+					if(listaPerritos!=NULL && perritos_filtrarGalgos(listaPerritos)==0)
+					{
+						printf("\nRaciones calculadas exitosamente...");
+					}
+					system("pause");
+				}
+				else
+				{
+					printf("La lista no fue cargada previamente...");
 				}
 				break;
 		}

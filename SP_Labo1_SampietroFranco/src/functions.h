@@ -11,5 +11,8 @@ int perritos_calculateFood(LinkedList* llist);
 int perritos_orderByName(LinkedList* llist);
 void perrito_listOne(Perrito* perrito, int conComida);
 int perritos_listAll(LinkedList* llist, int conComida);
+int ePerrito_laQueFiltra(void* perrito);
+int perritos_filtrarGalgos(LinkedList* llist);
+int perritos_saveGalgosText(char* path, LinkedList* llist);
 
 #endif /* FUNCTIONS_H_ */

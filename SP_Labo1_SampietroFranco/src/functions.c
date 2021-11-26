@@ -102,7 +102,7 @@ void perrito_listOne(Perrito* perrito, int conComida)
 	}
 	else
 	{
-		printf("%-5d %-20s %-10.2f %-5d %-20s %-.210f\n", auxId, auxNombre, auxPeso, auxEdad, auxRaza, auxComida);
+		printf("%-5d %-20s %-10.2f %-5d %-20s %-10.2f\n", auxId, auxNombre, auxPeso, auxEdad, auxRaza, auxComida);
 	}
 }
 
@@ -151,6 +151,78 @@ int perritos_calculateFood(LinkedList* llist)
 	if(llist!=NULL)
 	{
 		ll_map(llist, ePerrito_laQueMapea);
+		return 0;
+	}
+	return 1;
+}
+
+int ePerrito_laQueFiltra(void* perrito)
+{
+	int auxEdad;
+	float auxComida;
+	char auxRaza[128];
+
+	if(perrito!=NULL)
+	{
+		perrito_getEdad(perrito, &auxEdad);
+		perrito_getCantidadComidaRacion(perrito, &auxComida);
+		perrito_getRaza(perrito, auxRaza);
+
+		if(strcmp(auxRaza, "Galgo")==0 && auxEdad>9 && auxComida<200)
+		{
+			return 0;
+		}
+	}
+	return 1;
+}
+
+int perritos_filtrarGalgos(LinkedList* llist)
+{
+	LinkedList* listaGalgos=NULL;
+
+	if(llist!=NULL)
+	{
+		listaGalgos=ll_filter(llist, ePerrito_laQueFiltra);
+
+		if(listaGalgos!=NULL)
+		{
+			return 0;
+		}
+	}
+	return 1;
+}
+
+int perritos_saveGalgosText(char* path, LinkedList* llist)
+{
+	Perrito* pPerrito=NULL;
+	int lltam;
+
+	if(path!=NULL && llist!=NULL)
+	{
+		FILE* pFile = fopen(path, "w");
+
+		int auxId, auxEdad;
+		float auxPeso, auxComida;
+		char auxNombre[128], auxRaza[128];
+
+		lltam=ll_len(llist);
+
+		fprintf(pFile, "%s\n", "id,nombre,peso,edad,raza,comida");
+		for(int i=0; i<lltam; i++)
+		{
+			pPerrito=(Perrito*) ll_get(llist, i);
+
+			perrito_getId(pPerrito, &auxId);
+			perrito_getNombre(pPerrito, auxNombre);
+			perrito_getPeso(pPerrito, &auxPeso);
+			perrito_getEdad(pPerrito, &auxEdad);
+			perrito_getRaza(pPerrito, auxRaza);
+			perrito_getCantidadComidaRacion(pPerrito, &auxComida);
+
+			fprintf(pFile, "%d,%s,%f,%d,%s,%f\n", auxId, auxNombre, auxPeso, auxEdad, auxRaza, auxComida);
+		}
+		fclose(pFile);
+		pFile=NULL;
 		return 0;
 	}
 	return 1;

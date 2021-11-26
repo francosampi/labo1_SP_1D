@@ -637,4 +637,24 @@ int ll_map(LinkedList* this, int (*pFunc)(void*))
 }
 
 LinkedList* ll_filter(LinkedList* this, int (*pFunc)(void*))
-{}
+{
+	LinkedList* newll=ll_newLinkedList();
+	int tam;
+	void* pElement;
+
+	if(this!=NULL && pFunc!=NULL)
+	{
+		tam = ll_len(this);
+
+		for(int i=0; i<tam; i++)
+		{
+			pElement=ll_get(this, i);
+			if(pFunc(pElement)==0)
+			{
+				ll_add(newll, pElement);
+			}
+		}
+		return newll;
+	}
+	return 1;
+}
