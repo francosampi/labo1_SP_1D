@@ -137,16 +137,20 @@ int perritos_listAll(LinkedList* llist, int conComida)
 
 int ePerrito_laQueMapea(void* perrito)
 {
+	Perrito* pPerrito=NULL;
+
+	float peso;
+	float cantidadComidaRacion;
+
 	if(perrito!=NULL)
 	{
-		float peso;
-		float cantidadComidaRacion;
+		pPerrito = (Perrito*) perrito;
 
-		perrito_getPeso(perrito, &peso);
+		perrito_getPeso(pPerrito, &peso);
 
 		cantidadComidaRacion=peso*23;
 
-		perrito_setCantidadComidaRacion(perrito, cantidadComidaRacion);
+		perrito_setCantidadComidaRacion(pPerrito, cantidadComidaRacion);
 
 		return 0;
 	}
@@ -165,15 +169,18 @@ int perritos_calculateFood(LinkedList* llist)
 
 int ePerrito_laQueFiltra(void* perrito)
 {
+	Perrito* pPerrito=NULL;
+
+	char auxRaza[128];
 	int auxEdad;
 	float auxComida;
-	char auxRaza[128];
 
 	if(perrito!=NULL)
 	{
-		perrito_getEdad(perrito, &auxEdad);
-		perrito_getCantidadComidaRacion(perrito, &auxComida);
-		perrito_getRaza(perrito, auxRaza);
+		pPerrito = (Perrito*) perrito;
+		perrito_getRaza(pPerrito, auxRaza);
+		perrito_getEdad(pPerrito, &auxEdad);
+		perrito_getCantidadComidaRacion(pPerrito, &auxComida);
 
 		if(strcmp(auxRaza, "Galgo")==0 && auxEdad>9 && auxComida<200)
 		{
@@ -183,20 +190,17 @@ int ePerrito_laQueFiltra(void* perrito)
 	return 1;
 }
 
-int perritos_filtrarGalgos(LinkedList* llist, LinkedList* filteredList)
+LinkedList* perritos_filtrarGalgos(LinkedList* llist)
 {
-	LinkedList* listaGalgos=NULL;
+	LinkedList* filteredList=NULL;
 
 	if(llist!=NULL)
 	{
-		listaGalgos=ll_filter(llist, ePerrito_laQueFiltra);
+		filteredList=ll_filter(llist, ePerrito_laQueFiltra);
 
-		if(listaGalgos!=NULL)
-		{
-			return 0;
-		}
+		return filteredList;
 	}
-	return 1;
+	return NULL;
 }
 
 int perritos_saveGalgosText(char* path, LinkedList* llist)

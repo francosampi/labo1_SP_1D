@@ -12,9 +12,10 @@ int main(void) {
 	int opcion = 0;
 	int flagListaCargada=0;
 	int flagRacionesCargadas=0;
+	int flagFiltroCargado=0;
 
 	LinkedList* listaPerritos = ll_newLinkedList();
-	LinkedList* listaFiltrada = ll_newLinkedList();
+	LinkedList* listaFiltrada = NULL;
 
 	do{
 		printLine("MENU");
@@ -86,9 +87,28 @@ int main(void) {
 			case 4:
 				if(flagListaCargada==1)
 				{
-					if(listaPerritos==NULL || perritos_listAll(listaPerritos, 1)==1)
+					if(flagRacionesCargadas==1)
 					{
-						printf("\nError al listar los datos...\n");
+						if(listaPerritos==NULL || perritos_listAll(listaPerritos, 1)==1)
+						{
+							printf("\nError al listar los datos...\n");
+						}
+					}
+					else
+					{
+						printf("\nLas raciones de comida no fueron calculadas previamente...\n");
+						if(verify("\nDesea calcularlas? ('s'): ")==0)
+						{
+							if (perritos_calculateFood(listaPerritos)==0)
+							{
+								flagRacionesCargadas=1;
+								printf("\nRaciones calculadas exitosamente...\n");
+							}
+						}
+						else
+						{
+							printf("\nVolviendo al menu...\n");
+						}
 					}
 				}
 				else
@@ -102,14 +122,31 @@ int main(void) {
 				{
 					if(flagRacionesCargadas==1)
 					{
-						if(listaPerritos!=NULL && perritos_filtrarGalgos(listaPerritos, listaFiltrada)==0)
+						if(flagFiltroCargado==0)
 						{
-							printf("\nRaciones calculadas exitosamente...\n");
+							if(listaPerritos!=NULL)
+							{
+								listaFiltrada=perritos_filtrarGalgos(listaPerritos);
+								flagFiltroCargado=1;
+								printf("\nGalgos filtrados exitosamente...\n");
+							}
 						}
 					}
 					else
 					{
 						printf("\nLas raciones de comida no fueron calculadas previamente...\n");
+						if(verify("\nDesea calcularlas? ('s'): ")==0)
+						{
+							if (perritos_calculateFood(listaPerritos)==0)
+							{
+								flagRacionesCargadas=1;
+								printf("\nRaciones calculadas exitosamente...\n");
+							}
+						}
+						else
+						{
+							printf("\nVolviendo al menu...\n");
+						}
 					}
 				}
 				else
@@ -123,9 +160,26 @@ int main(void) {
 				{
 					if(flagRacionesCargadas==1)
 					{
-						if(listaPerritos!=NULL && perritos_saveGalgosText("src//galgosFlaquitos.csv", listaFiltrada)==0)
+						if(flagFiltroCargado==1)
 						{
-							printf("\nGalgos guardados exitosamente...\n");
+							if(listaPerritos!=NULL && perritos_saveGalgosText("src//galgosFlaquitos.csv", listaFiltrada)==0)
+							{
+								printf("\nGalgos guardados exitosamente...\n");
+							}
+						}
+						else
+						{
+							printf("\nLos filtros no fueron aplicados previamente...\n");
+							if(verify("\nDesea filtrar la lista? ('s'): ")==0)
+							{
+								listaFiltrada=perritos_filtrarGalgos(listaPerritos);
+								flagFiltroCargado=1;
+								printf("\nGalgos filtrados exitosamente...\n");
+							}
+							else
+							{
+								printf("\nVolviendo al menu...\n");
+							}
 						}
 					}
 					else
