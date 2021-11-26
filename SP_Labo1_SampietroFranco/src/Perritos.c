@@ -15,10 +15,11 @@ Perrito* perrito_newParametros(char* idStr,char* nombreStr,char* pesoStr,char* e
 	Perrito* perrito = NULL;
 	perrito = perrito_new();
 
-	if(perrito!=NULL && idStr!=NULL && nombreStr!=NULL && edadStr!=NULL && razaStr!=NULL)
+	if(perrito!=NULL && idStr!=NULL && nombreStr!=NULL && pesoStr!=NULL && edadStr!=NULL && razaStr!=NULL)
 	{
 		perrito_setId(perrito, atoi(idStr));
 		perrito_setNombre(perrito, nombreStr);
+		perrito_setPeso(perrito, atof(pesoStr));
 		perrito_setEdad(perrito, atoi(edadStr));
 		perrito_setRaza(perrito, razaStr);
 	}
@@ -74,6 +75,26 @@ int perrito_getNombre(Perrito* this,char* nombre)
 	return -1;
 }
 
+int perrito_setPeso(Perrito* this,float peso)
+{
+	if(this!=NULL)
+	{
+		this->peso=peso;
+		return 0;
+	}
+	return -1;
+}
+
+int perrito_getPeso(Perrito* this,float* peso)
+{
+	if(this!=NULL && peso!=NULL)
+	{
+		*peso=this->peso;
+		return 0;
+	}
+	return -1;
+}
+
 int perrito_setEdad(Perrito* this,int edad)
 {
 	if(this!=NULL)
@@ -109,6 +130,26 @@ int perrito_getRaza(Perrito* this,char* raza)
 	if(this!=NULL && raza!=NULL)
 	{
 		strcpy(raza, this->raza);
+		return 0;
+	}
+	return -1;
+}
+
+int perrito_setCantidadComidaRacion(Perrito* this,float cantidadComidaRacion)
+{
+	if(this!=NULL)
+	{
+		this->cantidadComidaRacion=cantidadComidaRacion;
+		return 0;
+	}
+	return -1;
+}
+
+int perrito_getCantidadComidaRacion(Perrito* this,float* cantidadComidaRacion)
+{
+	if(this!=NULL && cantidadComidaRacion!=NULL)
+	{
+		*cantidadComidaRacion=this->peso;
 		return 0;
 	}
 	return -1;

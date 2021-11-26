@@ -10,6 +10,7 @@ typedef struct
     float peso;
     int edad;
     char raza[128];
+    float cantidadComidaRacion;
 }Perrito;
 
 Perrito* perrito_new();
@@ -21,9 +22,13 @@ int perrito_setId(Perrito* this,int id);
 int perrito_getId(Perrito* this,int* id);
 int perrito_setNombre(Perrito* this,char* nombre);
 int perrito_getNombre(Perrito* this,char* nombre);
+int perrito_setPeso(Perrito* this,float peso);
+int perrito_getPeso(Perrito* this,float* peso);
 int perrito_setEdad(Perrito* this,int edad);
 int perrito_getEdad(Perrito* this,int* edad);
 int perrito_setRaza(Perrito* this,char* raza);
 int perrito_getRaza(Perrito* this,char* raza);
+int perrito_setCantidadComidaRacion(Perrito* this,float cantidadComidaRacion);
+int perrito_getCantidadComidaRacion(Perrito* this,float* cantidadComidaRacion);
 
 #endif

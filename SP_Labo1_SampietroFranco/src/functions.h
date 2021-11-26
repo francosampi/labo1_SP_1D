@@ -6,5 +6,9 @@
 
 int perritos_loadFromText(char* path , LinkedList* llist);
 int perritos_listByName(LinkedList* llist);
+int ePerrito_laQueMapea(void* perrito);
+int perritos_calculateFood(LinkedList* llist);
+void perrito_listOne(Perrito* perrito, int conComida);
+int perritos_listAll(LinkedList* llist, int conComida);
 
 #endif /* FUNCTIONS_H_ */
